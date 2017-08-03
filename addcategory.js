@@ -111,13 +111,50 @@ router.post('/', function(req, res){
             "        </div>\n" +
             "        <div class=\"row\">\n" +
             "        <%category" + files.length + ".forEach(function(category" + files.length + "){%>\n" +
+            "            <%if(category" + files.length + ".photoName){\n" +
+            "               var foo = category" + files.length + ".photoName.split(\"/\");\n" +
+            "                for(var i = 1;i<foo.length;i++){\n" +
+            "            %>\n" +
+            "        <div class=\"col-md-4\" style=\"height : 390px;margin-bottom:30px\">\n" +
             "\n" +
-            "        <div class=\"col-md-3\" style=\"height : 250px;margin-bottom:30px\">\n" +
+            "            <img style=\"object-fit : cover;\" src=\"photo/<%=foo[i]%>\" data-toggle=\"modal\" data-target=\"#myModal<%=foo[i].split(\".\")[0]%>\">\n" +
             "\n" +
-            "            <img src=\"photo/<%=category" + files.length + ".photoName%>\" data-toggle=\"modal\" data-target=\"#myModal<%=category" + files.length + ".id%>\">\n" +
+            "            <!-- image_view_Modal -->\n" +
+            "            <div class=\"modal fade\" id=\"myModal<%=foo[i].split(\".\")[0]%>\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n" +
+            "                <div class=\"modal-dialog\" role=\"document\">\n" +
+            "                    <div class=\"modal-content\">\n" +
+            "                        <div class=\"modal-header\" style=\"background-color: #F0F0F0\">\n" +
+            "                            <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\" ><span aria-hidden=\"true\" >&times;</span></button>\n" +
+            "                            <h4 class=\"modal-title\" id=\"myModalLabel\"><%=category" + files.length +  ".name%></h4>\n" +
+            "                        </div>\n" +
+            "                        <div class=\"modal-body\">\n" +
+            "                            <%if(category" + files.length + ".photoName){%>\n" +
+            "                            <img  src=\"photo/<%=foo[i]%>\">\n" +
+            "                            <%}%>\n" +
+            "\n" +
+            "                            <h5><%=category" + files.length + ".content%></h5>\n" +
+            "                        </div>\n" +
+            "                        <div class=\"modal-footer\" style=\"background-color: #F0F0F0\">\n" +
+            "\n" +
+            "<%if(isLogin && JSON.stringify(userData) === '{\"userID\":\"fb_1896746140650029\",\"userPassword\":\"facebook_login\",\"displayName\":\"최동호\"}' ||\n" +
+            "                 JSON.stringify(userData) === '{\"userID\":\"fb_817220205102759\",\"userPassword\":\"facebook_login\",\"displayName\":\"이재권\"}'){%>" +
+            "                            <a href=\"/category" + files.length + "/delete/<%=category" + files.length +  ".id%>\" type=\"button\" class=\"btn btn-primary\">삭제하기</a>\n" +
+            "                            <%}%>\n" +
+            "                        </div>\n" +
+            "                    </div>\n" +
+            "                </div>\n" +
+            "            </div>\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "\n" +
             "\n" +
             "        </div>\n" +
-            "\n" +
+            "            <%}}%>\n" +
             "        <%});%>\n" +
             "        </div>\n" +
             "\n" +
@@ -136,15 +173,18 @@ router.post('/', function(req, res){
             "        <hr>\n" +
             "\n" +
             "        <div class=\"col-xs-4\">\n" +
-            "                <%if(isLogin && JSON.stringify(userData) === '{\"userID\":\"fb_1896746140650029\",\"userPassword\":\"facebook_login\",\"displayName\":\"최동호\"}'){%>\n" +
-            "\n" +  "<a href=\"/category" + files.length + "/category_delete/<%=category._id%>\"" + "class=\"btn btn-danger\" onclick=\"return confirm('삭제 하시겠습니까?')\">카테고리 삭제</a>" +
-            "\n" +            "<%}%>" + "\n" +
+            "<%if(isLogin && JSON.stringify(userData) === '{\"userID\":\"fb_1896746140650029\",\"userPassword\":\"facebook_login\",\"displayName\":\"최동호\"}' ||\n" +
+            "                 JSON.stringify(userData) === '{\"userID\":\"fb_817220205102759\",\"userPassword\":\"facebook_login\",\"displayName\":\"이재권\"}'){%>" +
+            "\n" +
+            "<a href=\"/category"  +  files.length +  "/category_delete/<%=category._id%>\"class=\"btn btn-danger\" onclick=\"return confirm('삭제 하시겠습니까?')\">카테고리 삭제</a>\n" +
+            "<%}%>\n" +
             "        </div>\n" +
             "        <div class=\"col-xs-4\">\n" +
             "            <h5 style=\"text-align: center; color : black\">Copyright &copy; 2017 JK All Rights Reserved</h5>\n" +
             "            <h5 style=\"text-align: center; color : black\">Made by Dongho Choi</h5>\n" +
             "        </div>\n" +
-            "    <%if(isLogin){%>\n" +
+            "    <%if(isLogin && JSON.stringify(userData) === '{\"userID\":\"fb_1896746140650029\",\"userPassword\":\"facebook_login\",\"displayName\":\"최동호\"}' ||\n" +
+            "                 JSON.stringify(userData) === '{\"userID\":\"fb_817220205102759\",\"userPassword\":\"facebook_login\",\"displayName\":\"이재권\"}'){%>\n" +
             "        <div class=\"col-xs-4\">\n" +
             "            <div class=\"pull-right\">\n" +
             "            <a href=\"#\" class=\"btn btn-align-left\" style=\"color : black\" data-toggle=\"modal\" data-target=\"#upload_image_modal\">\n" +
@@ -159,48 +199,29 @@ router.post('/', function(req, res){
             "            </a>\n" +
             "            </div>\n" +
             "        </div>\n" +
-            "    <%}%>\n" +
-            "\n" +
-            "</div>\n" +
-            "\n" +
-            "\n" +
-            "\n" +
-            "\n" +
-            "\n" +
-            "\n" +
-            "</div>\n" +
-            "\n" +
-            "\n" +
-            "\n" +
-            "\n" +
-            "\n" +
-            "<%category" + files.length + ".forEach(function(category" + files.length + "){%>\n" +
-            "<!-- image_view_Modal -->\n" +
-            "<div class=\"modal fade\" id=\"myModal<%=category" + files.length + ".id%>\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"myModalLabel\">\n" +
-            "    <div class=\"modal-dialog\" role=\"document\">\n" +
-            "        <div class=\"modal-content\">\n" +
-            "            <div class=\"modal-header\" style=\"background-color: #F0F0F0\">\n" +
-            "                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\" ><span aria-hidden=\"true\" >&times;</span></button>\n" +
-            "                <h4 class=\"modal-title\" id=\"myModalLabel\"><%=category" + files.length + ".name%></h4>\n" +
-            "            </div>\n" +
-            "            <div class=\"modal-body\">\n" +
-            "\n" +
-            "                <img  src=\"photo/<%=category" + files.length + ".photoName%>\">\n" +
-            "\n" +
-            "\n" +
-            "                <h5><%=category" + files.length + ".content%></h5>\n" +
-            "            </div>\n" +
-            "            <div class=\"modal-footer\" style=\"background-color: #F0F0F0\">\n" +
-            "\n" +
-            "                <%if(isLogin && JSON.stringify(userData) === '{\"userID\":\"fb_1896746140650029\",\"userPassword\":\"facebook_login\",\"displayName\":\"최동호\"}'){%>\n" +
-            "                <a href=\"/category" + files.length + "/delete/<%=category" + files.length + "._id%>\" type=\"button\" class=\"btn btn-primary\">삭제하기</a>\n" +
-            "                <%}%>\n" +
+            "    <%} else if(isLogin){%>\n" +
+            "        <div class=\"col-xs-4\">\n" +
+            "            <div class=\"pull-right\">\n" +
+            "            <a href=\"/logout\" class=\"btn btn-align-left\" style=\"color : black\">\n" +
+            "                <span class=\"glyphicon glyphicon-log-out\" style=\"font-size : 30px;\"></span>\n" +
+            "            </a>\n" +
             "            </div>\n" +
             "        </div>\n" +
-            "    </div>\n" +
+            "<%}%>"  +
+            "\n" +
             "</div>\n" +
             "\n" +
-            "<%});%>\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "</div>\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "\n" +
             "\n" +
             "\n" +
             "\n" +
@@ -221,7 +242,7 @@ router.post('/', function(req, res){
             "\n" +
             "                    <img name=\"blah\" id=\"blah\" src=\"/img/white.jpg\" alt=\"your image\" style=\"width : 100%; height : 100%;\"/>\n" +
             "                    <span class=\"btn btn-default btn-lg btn-file\">\n" +
-            "                    사진 찾기 <input type=\"file\" id=\"imgInp\" name=\"photo\">\n" +
+            "                    사진 찾기 <input type=\"file\" id=\"imgInp\" name=\"photo\" multiple>\n" +
             "                </span>\n" +
             "                    <br>\n" +
             "                    <br>\n" +
@@ -278,11 +299,10 @@ router.post('/', function(req, res){
                 if (err) throw err;
                 fs.writeFile(path.join(__dirname + '/routes/categories/') + "category" + files.length + ".js", "var express = require('express');\n" +
                     "var router = express.Router();\n" +
-                    "var category" + files.length + "s = require('../../models/category" + files.length + "')\n" +
+                    "var category" + files.length +  "s = require('../../models/category" + files.length + "')\n" +
                     "var commentModel = require('../../models/CommentModel')\n" +
                     "var multer = require('multer');\n" +
-                    "var categoryModel = require('../../models/CategoryModel');" +
-                    "var fs = require('fs')\n" +
+                    "var categoryModel = require('../../models/CategoryModel');var fs = require('fs')\n" +
                     "var path = require('path')\n" +
                     "var uploadDir = path.join(__dirname , '../../public/photo')\n" +
                     "var stripTags = require('striptags')\n" +
@@ -295,42 +315,58 @@ router.post('/', function(req, res){
                     "        cb(null, uploadDir)\n" +
                     "    },\n" +
                     "    filename: function (req, file, cb) {\n" +
-                    "        cb(null, file.originalname)\n" +
+                    "        cb(null, 'photo-' + Date.now() + '.' + file.mimetype.split('/')[1])\n" +
                     "    }\n" +
                     "})\n" +
                     "\n" +
-                    "var upload = multer({ storage: storage })\n" +
+                    "var upload = multer({ storage: storage , fileFilter: function (req, file, callback) {\n" +
+                    "        var ext = path.extname(file.originalname);\n" +
+                    "        if(ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg' && ext !== '.JPG') {\n" +
+                    "            return callback(new Error('Only images are allowed'))\n" +
+                    "        }\n" +
+                    "        callback(null, true)\n" +
+                    "    }})\n" +
                     "\n" +
                     "\n" +
                     "\n" +
                     "router.get('/', csrfProtection,function(req, res){\n" +
-                    "    category" + files.length + "s.find( function(err, category" + files.length + "){ \n" +
-                    "\n" +  "categoryModel.findOne({ title : " + "\"" + title + "\"}, function(err, category){ res.render('categories/category" + files.length + "', {category : category, category" + files.length + " : category" + files.length + ", csrfToken : req.csrfToken()});" +
-                    "        });\n" +
+                    "    category" + files.length +  "s.find( function(err, category" + files.length + "){ \n" +
+                    "\n" +
+                    "categoryModel.findOne({ title : " + "\"" + title  + "\"}, function(err, category){ res.render('categories/category" + files.length + "', {category : category, category" + files.length +" : category" + files.length + ", csrfToken : req.csrfToken()});        });\n" +
                     "    });\n" +
                     "});\n" +
                     "\n" +
-                    "router.post('/', upload.single('photo'), function (req, res, next) {\n" +
-                    "    const category" + files.length + " = new category" + files.length + "s({\n" +
+                    "router.post('/', upload.any(), function (req, res, next) {\n" +
+                    "    if(req.files){\n" +
+                    "        var filenames = \"\";\n" +
+                    "        for(var i in req.files){\n" +
+                    "            filenames += (\"/\" + req.files[i].filename)\n" +
+                    "\n" +
+                    "        }\n" +
+                    "    }\n" +
+                    "    const category" +  files.length + " = new category" + files.length + "s({\n" +
                     "        name : req.body.name,\n" +
-                    "        photoName : req.file.filename,\n" +
+                    "        photoName : (req.files) ? filenames : \"\",\n" +
                     "        content : stripTags(req.body.content)\n" +
                     "\n" +
                     "    })\n" +
-                    "    category" + files.length + ".save(function(err){\n" +
+                    "    category" + files.length +  ".save(function(err){\n" +
                     "        res.redirect('/category" + files.length + "')\n" +
                     "    })\n" +
                     "\n" +
                     "\n" +
                     "});\n" +
                     "\n" +
-                    "router.get('/delete/:_id', function(req, res){\n" +
-                    "    category" + files.length + "s.remove({_id : req.params._id}, function(err){\n" +
-                    "        res.redirect('/category" + files.length + "')\n" +
+                    "router.get('/delete/:id', function(req, res){\n" +
+                    "\n" +
+                    "\n" +
+                    "    category" + files.length +   "s.remove({id : req.params.id}, function(err){\n" +
+                    "        res.redirect('/category" +  files.length + "')\n" +
                     "    })\n" +
                     "})\n" +
                     "\n" +
-                    "\n" + "router.get('/category_delete/:_id', function(req, res){ categoryModel.remove({_id : req.params._id}, function(err){ res.redirect('/categoryselect') }) });"   +                    "module.exports = router;", function (err) {
+                    "router.get('/category_delete/:_id', function(req, res){ categoryModel.remove({_id : req.params._id}, function(err){ res.redirect('/categoryselect') }) });\n" +
+                    "module.exports = router;", function (err) {
                     if (err) throw err;
                     fs.readdir('./routes/categories', function (err, files) {
                         const category = new categoryModel({

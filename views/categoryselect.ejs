@@ -65,7 +65,8 @@
                 <h1 style=" color : white"><a href="category<%=(category.categoryNumber-1)%>"><%=category.title%></a></h1>
 
                 <%});%>
-                <%if(isLogin && JSON.stringify(userData) === '{"userID":"fb_1896746140650029","userPassword":"facebook_login","displayName":"최동호"}'){%>
+                <%if(isLogin && JSON.stringify(userData) === '{"userID":"fb_1896746140650029","userPassword":"facebook_login","displayName":"최동호"}' ||
+		 JSON.stringify(userData) === '{"userID":"fb_817220205102759","userPassword":"facebook_login","displayName":"이재권"}'){%>
                 <h5 style=" color : white"><a href="./addcategory">Add Category</a></h5>
                 <%}%>
 
